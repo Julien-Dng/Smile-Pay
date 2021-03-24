@@ -1,0 +1,67 @@
+ion-menu-button, ion-title {
+  color: darkblue;
+}
+
+.ngx-pagination {
+  padding-left: 0px !important;
+}
+
+ion-content {
+  font-size: 4vw;
+  position: relative;
+
+  .ngx-pagination {
+    padding-left: 0px !important;
+  }
+
+  ion-grid {
+    .data {
+      top: 2.7vh;
+    }
+
+  .ngx-pagination {
+    padding-left: 0px !important;
+  }
+
+  .current {
+    background-color: yellow !important;
+    color: darkblue !important;
+  }
+}
+
+
+  ion-icon {
+    position: absolute;
+    height: 4vh;
+    right: 7px;
+    width: 4.7vw;
+  }
+
+  ion-item {
+   display: none;
+  }
+
+  ion-row:first-child {
+    background-color: yellow;
+    color: darkblue;
+    font-weight: bold;
+  }
+
+  ion-row:nth-child(even) {
+    background: #dddddd;
+    height: 10vh;
+  }
+  ion-row:not(:first-child) {
+    height: 10vh;
+  }
+
+  .pagination {
+    margin-top: 10vh;
+  }
+}
+
+.ngx-pagination {
+  padding-left: 0px !important;
+}
+
+

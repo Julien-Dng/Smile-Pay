@@ -1,0 +1,94 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Transactions</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="menu-main"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-grid>
+    <ion-row color="success">
+      <ion-col
+        class="column col-date"
+        size-xs="4"
+      >
+        <span>
+          Date
+        </span>
+      </ion-col>
+      <ion-col
+        class="column col-type"
+        size-xs="2"
+      >
+        <span>
+          Type
+        </span>
+      </ion-col>
+      <ion-col
+        class="column col-mode"
+        size-xs="2"
+      >
+        <span>
+          Mode
+        </span>
+      </ion-col>
+      <ion-col
+        class="column col-amount"
+        size-xs="3"
+      >
+        <span>
+          Montant
+        </span>
+      </ion-col>
+      <ion-item>
+        <ion-label>Trier par</ion-label>
+        <ion-select
+          [(ngModel)]="choice"
+          (ionChange)="sortTransaction()"
+          #select
+        >
+          <ion-select-option value="date">Date</ion-select-option>
+          <ion-select-option value="type">Type</ion-select-option>
+          <ion-select-option value="mode">Mode</ion-select-option>
+          <ion-select-option value="amount">Montant</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-icon
+        name="options"
+        (click)="openSelect()"
+      ></ion-icon>
+    </ion-row>
+    <ion-row
+      *ngFor="let transaction of transactions | paginate: { itemsPerPage: 5, currentPage: p}; let i = index;"
+      (click)="openModal(transaction, i)">
+      <ion-col
+        class="data"
+        size-xs="4"
+      >
+        {{ transaction.datetime  | date: 'dd/MM/yyyy'}}
+      </ion-col>
+      <ion-col
+        class="data col-type"
+        size-xs="2"
+      >
+        {{ transaction.type | titlecase }}
+      </ion-col>
+      <ion-col
+        class="data col-mode"
+        size-xs="2"
+      >
+        {{ transaction.mode }}
+      </ion-col>
+      <ion-col
+        class="data"
+        size-xs="3"
+      >
+        {{ transaction.amount }} €
+      </ion-col>
+    </ion-row>
+    <div class="pagination">
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+  </ion-grid>
+</ion-content>

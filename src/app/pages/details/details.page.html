@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Détails</ion-title>
+    <ion-buttons
+      slot="end"
+      (click)="dismissModal()"
+    >
+      <ion-icon name="close-circle"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <div class="date transaction">
+    <div class="label">Date:</div>
+    <div class="input">{{ transaction.datetime | date: 'dd/MM/yyyy' }}</div>
+    <div *ngIf="!transaction.datetime">_</div>
+  </div>
+  <div class="type transaction">
+    <div class="label">Type:</div>
+    <div class="input">{{ transaction.type | titlecase }}</div>
+    <div *ngIf="!transaction.type">_</div>
+  </div>
+  <div class="mode transaction">
+    <div class="label">Mode:</div>
+    <div class="input">{{ transaction.mode }}</div>
+    <div *ngIf="!transaction.mode">_</div>
+
+  </div>
+  <div class="amount transaction">
+    <div class="label">Montant:</div>
+    <div class="input">{{ transaction.amount }} €</div>
+    <div *ngIf="!transaction.amount">_</div>
+  </div>
+  <div class="comments transaction">
+    <div class="label">Commentaire:</div>
+    <div
+      *ngIf="transaction.commentaire"
+      class="input"
+    >
+      {{ transaction.commentaire | titlecase }}
+    </div>
+    <div
+      *ngIf="!transaction.commentaire"
+      class="none"
+    >
+      _
+    </div>
+  </div>
+
+  <ion-button
+    class="delete"
+    expand="block"
+    color="warning"
+    (click)="deleteTransaction()"
+  >
+  <span>
+    Supprimer la transaction
+  </span>
+  </ion-button>
+</ion-content>

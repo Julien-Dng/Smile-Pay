@@ -1,0 +1,37 @@
+ion-title, ion-icon {
+  color: darkblue;
+}
+
+ion-content {
+  font-size: 5vw;
+
+  .transaction {
+    display: flex;
+    margin-top: 1vh;
+    padding: 20px 0;
+
+    .label {
+      font-weight: bold;
+      width: 50%;
+    }
+  }
+
+  .comments {
+    .input {
+      width: 50%;
+    }
+
+    .none {
+      width: 0%;
+    }
+  }
+
+  .delete {
+    margin-top: 16vh;
+
+    span {
+      color: darkblue;
+    }
+  }
+}
+
