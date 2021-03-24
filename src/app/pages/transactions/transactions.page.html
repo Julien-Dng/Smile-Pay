@@ -60,7 +60,7 @@
       ></ion-icon>
     </ion-row>
     <ion-row
-      *ngFor="let transaction of transactions | paginate: { itemsPerPage: 5, currentPage: p}; let i = index;"
+      *ngFor="let transaction of transactions | paginate: { itemsPerPage: 5, currentPage: p} ; let i = index;"
       (click)="openModal(transaction, i)">
       <ion-col
         class="data"

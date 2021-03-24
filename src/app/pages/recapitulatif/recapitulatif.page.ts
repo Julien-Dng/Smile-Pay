@@ -21,31 +21,22 @@ export class RecapitulatifPage implements OnInit {
 
   constructor(
     private transactionsService: TransactionsService,
-  ) {
-    // this.transactionsService.getJSON().subscribe(data => {
-    //   this.transactions = data.transactions;
-    //   console.log('initail',this.transactions)
-    //   this.getTotal();
-
-    // });
-  }
+  ) {}
 
   ngOnInit(): void {
-      this.transactionsService.getJSON().subscribe(data => {
-      this.transactions = data.transactions;
-      console.log('initail',this.transactions)
-      this.getTotal();
-
-    });
-
-    this.transactionsService.list.subscribe(transactions => {
-      this.transactions = transactions;
-      console.log('update', this.transactions);
-      this.getTotal();
+    this.transactionsService.listSubject.subscribe(data => {
+      if (data.length) {
+        this.transactionsService.getJSON().subscribe(_ => {
+          this.transactions = data;
+          this.getTotal();
+        });
+      }
     });
   }
 
-  // To get total of credit and debit
+  /**
+   * To get total between credit and debit
+   */
   getTotal(): number {
     const credits = [];
     const debits = [];

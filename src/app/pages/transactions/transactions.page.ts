@@ -1,7 +1,5 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalController, ToastController, IonSelect } from '@ionic/angular';
-import { Storage } from '@ionic/storage-angular';
 
 import { Subscription } from 'rxjs';
 
@@ -28,22 +26,16 @@ export class TransactionsPage implements OnInit {
     private modalController: ModalController,
     private transactionsService: TransactionsService,
     private toastCtrl: ToastController,
-    private storage: Storage,
-    ) {
-    }
+    ) {}
 
-    ngOnInit() {
-    this.transactionsService.getJSON().subscribe(data => {
-      this.transactions = data.transactions;
-      console.log(this.transactions);
-    });
-
-    this.subscription = this.transactionsService.changeListEvent
-      .subscribe(list => {
-        this.transactions = list;
-        console.log(this.transactions);
+  ngOnInit() {
+    this.transactionsService.listSubject.subscribe(data => {
+      if (data.length) {
+        this.transactionsService.getJSON().subscribe(_ => {
+          this.transactions = data;
+        });
       }
-    );
+    });
   }
 
   /**

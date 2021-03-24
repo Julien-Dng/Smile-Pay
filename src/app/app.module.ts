@@ -9,7 +9,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { TransactionsService } from './services/transactions.service';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { IonicStorageModule } from '@ionic/storage-angular';
 
 
 
@@ -22,9 +21,11 @@ import { IonicStorageModule } from '@ionic/storage-angular';
     AppRoutingModule,
     HttpClientModule,
     NgxPaginationModule,
-    IonicStorageModule.forRoot()
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, TransactionsService],
+  providers: [
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    TransactionsService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

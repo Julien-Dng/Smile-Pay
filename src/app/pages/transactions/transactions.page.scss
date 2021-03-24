@@ -16,7 +16,9 @@ ion-content {
 
       ::ng-deep {
         .ngx-pagination {
-          padding-left: 0px !important;
+          padding-left: 12px !important;
+          position: fixed;
+          bottom: 20vh;
         }
 
         .current {
