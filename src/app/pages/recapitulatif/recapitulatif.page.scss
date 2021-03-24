@@ -8,9 +8,9 @@ ion-content {
       padding: 10px;
     }
 
-    padding-top: 10vh;
     display: flex;
     justify-content: space-evenly;
+    padding-top: 10vh;
 
     .label {
       display: flex;
@@ -28,7 +28,7 @@ ion-content {
   }
 
   ion-img {
-    width: 80%;
     margin: 20px;
+    width: 80%;
   }
 }

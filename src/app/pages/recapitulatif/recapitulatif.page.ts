@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { TransactionInterface } from 'src/interface/models/transaction.model.interface';
@@ -20,31 +20,29 @@ export class RecapitulatifPage implements OnInit {
   total: number;
 
   constructor(
-    private http: HttpClient,
     private transactionsService: TransactionsService,
-  ) { }
+  ) {
+    // this.transactionsService.getJSON().subscribe(data => {
+    //   this.transactions = data.transactions;
+    //   console.log('initail',this.transactions)
+    //   this.getTotal();
+
+    // });
+  }
 
   ngOnInit(): void {
-    this.subscription = this.transactionsService.changeListEvent
-      .subscribe(list => {
-        this.newList = list;
-
-        if (this.newList) {
-          this.transactionsService.newList.subscribe(transactions => {
-            this.transactions = transactions;
-            this.getTotal();
-
-            return;
-          })
-        }
-      }
-    );
-
-      this.http.get('./assets/data/transactions.json').subscribe((data: any) => {
+      this.transactionsService.getJSON().subscribe(data => {
       this.transactions = data.transactions;
+      console.log('initail',this.transactions)
       this.getTotal();
+
     });
 
+    this.transactionsService.list.subscribe(transactions => {
+      this.transactions = transactions;
+      console.log('update', this.transactions);
+      this.getTotal();
+    });
   }
 
   // To get total of credit and debit

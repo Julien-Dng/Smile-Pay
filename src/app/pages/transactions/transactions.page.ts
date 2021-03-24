@@ -1,6 +1,8 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ModalController, ToastController, IonSelect } from '@ionic/angular';
+import { Storage } from '@ionic/storage-angular';
+
 import { Subscription } from 'rxjs';
 
 import { TransactionInterface } from 'src/interface/models/transaction.model.interface';
@@ -14,7 +16,7 @@ import { TransactionsService } from 'src/app/services/transactions.service';
   templateUrl: './transactions.page.html',
   styleUrls: ['./transactions.page.scss'],
 })
-export class TransactionsPage implements OnInit, OnDestroy {
+export class TransactionsPage implements OnInit {
   @ViewChild('select') selectRef: IonSelect;
 
   choice: string;
@@ -23,29 +25,30 @@ export class TransactionsPage implements OnInit, OnDestroy {
   transactions: TransactionInterface[];
 
   constructor(
-    private http: HttpClient,
     private modalController: ModalController,
     private transactionsService: TransactionsService,
     private toastCtrl: ToastController,
-    ) { }
+    private storage: Storage,
+    ) {
+    }
 
-  ngOnInit(): void {
-    this.http.get('./assets/data/transactions.json').subscribe((data: any) => {
+    ngOnInit() {
+    this.transactionsService.getJSON().subscribe(data => {
       this.transactions = data.transactions;
+      console.log(this.transactions);
     });
 
-    this.subscription = this.transactionsService.deleteTransactionEvent
-      .subscribe(index => {
-        this.deteleSpecificTransaction(index);
+    this.subscription = this.transactionsService.changeListEvent
+      .subscribe(list => {
+        this.transactions = list;
+        console.log(this.transactions);
       }
     );
   }
 
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
-
-  // sort transaction
+  /**
+   * Sort transaction
+   */
   sortTransaction(): void {
     switch (this.choice) {
       case 'date':
@@ -80,17 +83,19 @@ export class TransactionsPage implements OnInit, OnDestroy {
           return first > last ? 1 : first < last ? -1 : 0;
         });
         break;
-      default: this.transactions;
     }
   }
 
-  openSelect()
-  {
-      this.selectRef.open();
+  /**
+   * Open select list to sort
+   */
+  openSelect() {
+    this.selectRef.open();
   }
 
-
-  // Open modal to show transactions details
+  /**
+   * Open modal to show transaction details
+   */
   async openModal(transaction: any, index: number) {
     let detailsPage = await this.modalController.create({
       component: DetailsPage,
@@ -100,21 +105,17 @@ export class TransactionsPage implements OnInit, OnDestroy {
     await detailsPage.present();
   }
 
-  // Delete a transaction from list
-  deteleSpecificTransaction(index): void {
-    this.transactions.splice(index, 1);
-    this.noticeDeteled();
-    this.transactionsService.updateTransaction(this.transactions);
-  }
-
-  // To notice that transaction has been deleted
-  noticeDeteled(): void {
+  /**
+   * Notice that the transaction has been deleted
+   */
+  noticeTransactionDeteled(): void {
     this.toastCtrl.create({
         message: `La transaction a été supprimé de la liste`,
         duration: 1000,
         position: 'top',
-      }).then((toast) => {
+    }).then((toast) => {
         toast.present();
-      });
-    }
+      })
+    ;
+  }
 }

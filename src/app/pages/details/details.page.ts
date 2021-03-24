@@ -21,9 +21,9 @@ export class DetailsPage {
     this.modalCtrl.dismiss();
   }
 
-  // Detele the specific transaction
+  // Detele a specific transaction from the list
   deleteTransaction(): void {
-    this.transactionsService.getTransactionIndex(this.index);
+    this.transactionsService.deleteTransaction(this.transaction.id);
     this.dismissModal();
   }
 }

@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
+import { IonicStorageModule } from '@ionic/storage-angular';
+
 import { NgxPaginationModule } from 'ngx-pagination';
 
 import { TransactionsPageRoutingModule } from './transactions-routing.module';
@@ -16,6 +18,7 @@ import { TransactionsPage } from './transactions.page';
     IonicModule,
     TransactionsPageRoutingModule,
     NgxPaginationModule,
+    IonicStorageModule.forRoot(),
   ],
   declarations: [TransactionsPage]
 })
