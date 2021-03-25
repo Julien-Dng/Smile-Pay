@@ -4,13 +4,13 @@ ion-menu-button, ion-title {
 
 ion-content {
   .summary {
-    span {
-      padding: 10px;
-    }
-
     display: flex;
     justify-content: space-evenly;
     padding-top: 10vh;
+
+    span {
+      padding: 10px;
+    }
 
     .label {
       display: flex;

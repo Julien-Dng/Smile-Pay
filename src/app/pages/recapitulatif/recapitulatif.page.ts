@@ -1,10 +1,8 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnChanges, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component,  OnInit } from '@angular/core';
 
 import { TransactionInterface } from 'src/interface/models/transaction.model.interface';
 
-import { TransactionsService } from 'src/app/services/transactions.service';
+import { TransactionsService } from './../../services/transactions.service';
 
 @Component({
   selector: 'app-recapitulatif',
@@ -12,8 +10,6 @@ import { TransactionsService } from 'src/app/services/transactions.service';
   styleUrls: ['./recapitulatif.page.scss'],
 })
 export class RecapitulatifPage implements OnInit {
-  newList: boolean;
-  subscription: Subscription;
   transactions: TransactionInterface[];
   totalCredit = Array<number>();
   totalDebit = Array<number>();

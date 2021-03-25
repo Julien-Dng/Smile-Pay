@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Transactions</ion-title>
+    <ion-title class="ion-text-center">Transactions</ion-title>
     <ion-buttons slot="start">
       <ion-menu-button menu="menu-main"></ion-menu-button>
     </ion-buttons>
@@ -44,6 +44,7 @@
       <ion-item>
         <ion-label>Trier par</ion-label>
         <ion-select
+          [interfaceOptions]="{cssClass: 'my-class'}"
           [(ngModel)]="choice"
           (ionChange)="sortTransaction()"
           #select

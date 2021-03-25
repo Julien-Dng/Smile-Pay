@@ -21,4 +21,8 @@ describe('DetailsPage', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('close modal', () => {
+    component.dismissModal();
+  });
 });

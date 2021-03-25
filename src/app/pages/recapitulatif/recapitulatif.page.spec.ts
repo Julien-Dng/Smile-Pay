@@ -21,4 +21,10 @@ describe('RecapitulatifPage', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('return total', () => {
+    component.getTotal();
+
+    expect(component.getTotal()).toMatch(/\d{1,}/);
+  });
 });

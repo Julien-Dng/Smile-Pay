@@ -1,13 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalController, ToastController, IonSelect } from '@ionic/angular';
-
-import { Subscription } from 'rxjs';
+import { ModalController, IonSelect } from '@ionic/angular';
 
 import { TransactionInterface } from 'src/interface/models/transaction.model.interface';
 
 import { DetailsPage } from './../details/details.page';
 
-import { TransactionsService } from 'src/app/services/transactions.service';
+import { TransactionsService } from './../../services/transactions.service';
 
 @Component({
   selector: 'app-transactions',
@@ -18,14 +16,12 @@ export class TransactionsPage implements OnInit {
   @ViewChild('select') selectRef: IonSelect;
 
   choice: string;
-  subscription: Subscription;
   transaction: number;
   transactions: TransactionInterface[];
 
   constructor(
     private modalController: ModalController,
     private transactionsService: TransactionsService,
-    private toastCtrl: ToastController,
     ) {}
 
   ngOnInit() {
@@ -36,6 +32,10 @@ export class TransactionsPage implements OnInit {
         });
       }
     });
+
+    this.transactionsService.changeListEvent.subscribe(_ => {
+      this.transactionsService.noticeTransactionDeteled();
+    })
   }
 
   /**
@@ -74,7 +74,7 @@ export class TransactionsPage implements OnInit {
 
           return first > last ? 1 : first < last ? -1 : 0;
         });
-        break;
+      break;
     }
   }
 
@@ -95,19 +95,5 @@ export class TransactionsPage implements OnInit {
     });
 
     await detailsPage.present();
-  }
-
-  /**
-   * Notice that the transaction has been deleted
-   */
-  noticeTransactionDeteled(): void {
-    this.toastCtrl.create({
-        message: `La transaction a été supprimé de la liste`,
-        duration: 1000,
-        position: 'top',
-    }).then((toast) => {
-        toast.present();
-      })
-    ;
   }
 }

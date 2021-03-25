@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { TransactionsService } from 'src/app/services/transactions.service';
+import { TransactionsService } from './../../services/transactions.service';
 
 @Component({
   selector: 'app-details',
@@ -16,12 +16,16 @@ export class DetailsPage {
     private transactionsService: TransactionsService,
   ) {}
 
-  // Close Modal
+  /**
+   * Close the modal
+   */
   dismissModal(): void {
     this.modalCtrl.dismiss();
   }
 
-  // Detele a specific transaction from the list
+  /**
+   * Detele a specific transaction from the list
+   */
   deleteTransaction(): void {
     this.transactionsService.deleteTransaction(this.transaction.id);
     this.dismissModal();

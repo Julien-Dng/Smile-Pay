@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable, OnInit, Output } from '@angular/core';
+import { ToastController } from '@ionic/angular';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { TransactionInterface } from 'src/interface/models/transaction.model.interface';
 @Injectable({
@@ -15,8 +16,12 @@ export class TransactionsService implements OnInit {
   totalDebit = Array<number>();
   total: number;
   transactions: TransactionInterface[];
+  url = './assets/data/transactions.json';
 
-  constructor (private http: HttpClient) {
+  constructor (
+    private http: HttpClient,
+    private toastCtrl: ToastController,
+    ) {
     this.getJSON().subscribe(data => {
        this.transactions = data.transactions;
        this.list.next(this.transactions);
@@ -31,7 +36,7 @@ export class TransactionsService implements OnInit {
    * Get data from JSON
    */
   getJSON(): Observable<any> {
-    return this.http.get('./assets/data/transactions.json');
+    return this.http.get(this.url);
   }
 
   /**
@@ -47,5 +52,19 @@ export class TransactionsService implements OnInit {
     this.transactions.splice(removeIndex, 1);
     this.changeListEvent.emit(this.transactions);
     this.list.next(this.transactions);
+  }
+
+  /**
+   * Notice that the transaction has been deleted
+   */
+  noticeTransactionDeteled(): void {
+    this.toastCtrl.create({
+        message: `La transaction a été supprimé de la liste`,
+        duration: 1000,
+        position: 'top',
+    }).then((toast) => {
+        toast.present();
+      })
+    ;
   }
 }
