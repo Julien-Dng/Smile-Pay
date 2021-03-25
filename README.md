@@ -14,6 +14,7 @@ Then excecute `npm install` on root folder.
 #### START PROJECT
 
 Now you can run the command `ionic serve --lab` to start the project. </br>
+
 By default the port used is http://localhost:8200/.
 
 
