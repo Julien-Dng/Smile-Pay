@@ -2,7 +2,7 @@
 
 #### INSTALL PROJECT
 
-Clone The project with git command or with the Zip format.
+Clone The project with git command or download the Zip.
 
 First you need to install Ionic CLI with the command `npm install -g @ionic/cli
 `.
